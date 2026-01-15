@@ -10,9 +10,9 @@ const PORT = process.env.PORT || 5000;
 const startServer = async () => {
   await connectDB();
 
-  // Only seed in development
+  // Demo users are now created on-demand via /auth/demo endpoint
+  // Only reset demo todos in development (for testing)
   if (process.env.NODE_ENV !== 'production') {
-    await seedDemoUser();
     await resetDemoTodos();
   }
 
