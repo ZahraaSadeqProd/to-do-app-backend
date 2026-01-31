@@ -8,6 +8,22 @@ const authRoutes = require('./routes/auth.routes');
 const todoRoutes = require('./routes/todo.routes');
 
 /**
+ * CORS configuration
+ * Allows requests from the production frontend and localhost for development
+ */
+const corsOptions = {
+  origin: [
+    'https://zas-angulartodoapp.netlify.app',
+    'http://localhost:4200',
+    'http://localhost:3000'
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+
+/**
  * Security middleware configuration
  * Applies Helmet CSP (Content Security Policy) to prevent various attacks
  * - Restricts resource loading to trusted sources
@@ -26,8 +42,7 @@ app.use(
   })
 );
 
-// Middleware for cross-origin and JSON parsing
-app.use(cors());
+// Middleware for JSON parsing
 app.use(express.json());
 
 // API Routes

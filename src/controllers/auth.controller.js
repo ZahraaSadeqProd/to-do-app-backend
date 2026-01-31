@@ -70,7 +70,7 @@ const register = async (req, res) => {
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: 'Email already registered' });
+      return res.status(400).json({ message: 'Email already exists, please use a different one' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
