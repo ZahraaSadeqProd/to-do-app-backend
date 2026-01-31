@@ -23,6 +23,14 @@ const login = async (req, res) => {
         .json({ message: 'Email and password required' });
     }
 
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res
+        .status(400)
+        .json({ message: 'Please enter a valid email address' });
+    }
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
@@ -66,6 +74,14 @@ const register = async (req, res) => {
       return res
         .status(400)
         .json({ message: 'Email and password required' });
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res
+        .status(400)
+        .json({ message: 'Please enter a valid email address' });
     }
 
     const existingUser = await User.findOne({ email });
